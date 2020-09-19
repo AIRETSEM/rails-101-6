@@ -11,6 +11,9 @@ class GroupsController < ApplicationController
 
   def edit
     @group = Group.find(params[:id])
+    if current_user != @group.user
+      redirect_to root_path, alert:"您未得到授權"
+    end
   end
 
   def new
@@ -29,6 +32,11 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
+
+    if current_user != @group.user
+      redirect_to root_path, alert:"您未得到授權"
+    end
+
     if @group.update(group_params)
       redirect_to groups_path, notice: "更新成功"
     else
@@ -38,6 +46,11 @@ class GroupsController < ApplicationController
 
   def destroy
     @group = Group.find(params[:id])
+
+    if current_user != @group.user
+      redirect_to root_path, alert:"您未得到授權"
+    end
+    
     @group.destroy
     flash[:alert] = "群組已刪除"
     redirect_to groups_path
