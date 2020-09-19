@@ -37,7 +37,7 @@ class GroupsController < ApplicationController
 
   def destroy
     @group.destroy
-    redirect_to groups_path, :alert: "群組已刪除"
+    redirect_to groups_path, alert: "群組已刪除"
   end
 
   private
